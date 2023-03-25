@@ -21,6 +21,8 @@ type MessageOpt = {
 };
 
 export class Conversation {
+  static history: Message[][] = [];
+
   messages: Message[] = [];
 
   constructor(
@@ -52,6 +54,8 @@ export class Conversation {
       ...this.messages,
       reply,
     ];
+
+    Conversation.history.push(this.messages);
 
     return reply;
   }
