@@ -60,7 +60,7 @@ export class Conversation {
 
     Conversation.history.push(this.messages);
 
-    return reply;
+    console.log(reply.content);
   }
 }
 
