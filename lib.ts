@@ -48,6 +48,11 @@ export class Conversation {
     };
     const res = await callAPI(request);
 
+    if (res.choices.length === 0) {
+      console.error(res);
+      throw new Error("No reply");
+    }
+
     const { message: reply, finish_reason } = res.choices[0];
     if (finish_reason !== "stop") {
       console.warn("The reply is not complete:", finish_reason);
