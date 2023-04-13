@@ -48,7 +48,10 @@ export class Conversation {
     };
     const res = await callAPI(request);
 
-    const reply = res.choices[0].message;
+    const { message: reply, finish_reason } = res.choices[0];
+    if (finish_reason !== "stop") {
+      console.warn("The reply is not complete:", finish_reason);
+    }
 
     this.messages = [
       ...this.messages,
@@ -82,7 +85,7 @@ type APIResponse = {
       role: "user" | "assistant" | "system";
       content: string;
     };
-    finish_reason: string;
+    finish_reason: "stop" | "length" | "content_filter";
   }[];
   usage: {
     prompt_tokens: number;
